@@ -1,11 +1,17 @@
 define [
-    'sprite-batch'
+    'game'
     'sprite'
-], (SpriteBatch, Sprite) ->
+], (Game, Sprite) ->
+    class TestGame extends Game
+        init: ->
+            @sprite = new Sprite 'title', 0, 0
+
+        draw: ->
+            @spriteBatch.begin()
+            @sprite.draw @spriteBatch
+            @spriteBatch.end()
+
     window.addEventListener 'load', ->
         canvas = document.getElementById 'storytime'
-        sprite = new Sprite 'title', 0, 0
-        batch = new SpriteBatch canvas
-        batch.begin()
-        sprite.draw batch
-        batch.end()
+        game = new TestGame canvas
+        game.start()
