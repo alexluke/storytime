@@ -13,7 +13,8 @@ define ->
 
             @vertexData = []
             @initShaders()
-            @gl.disable(@gl.BLEND)
+            @gl.enable(@gl.BLEND)
+            @gl.blendFunc @gl.SRC_ALPHA, @gl.ONE_MINUS_SRC_ALPHA
             @gl.clearColor(0.0, 0.0, 0.0, 1.0)
 
         initShaders: ->
