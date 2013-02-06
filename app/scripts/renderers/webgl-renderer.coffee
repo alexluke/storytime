@@ -11,11 +11,10 @@ define ->
             @width = canvas.width
             @height = canvas.height
 
+            @vertexData = []
             @initShaders()
             @gl.disable(@gl.BLEND)
             @gl.clearColor(0.0, 0.0, 0.0, 1.0)
-
-            @numVertices = 0
 
         initShaders: ->
             vertexShader = @_compileShader 'vertex-shader'
@@ -31,8 +30,13 @@ define ->
             if not @gl.getProgramParameter program, @gl.LINK_STATUS
                 throw "Cannot link shader program: " + @gl.getShaderInfoLog program
 
-            @shaderProgram = program
-            @gl.useProgram @shaderProgram
+            shaderProgram = program
+            @gl.useProgram shaderProgram
+            @shaderAttributes =
+                a_position: @gl.getAttribLocation shaderProgram, 'a_position'
+                a_texCoord: @gl.getAttribLocation shaderProgram, 'a_texCoord'
+                u_resolution: @gl.getUniformLocation shaderProgram, 'u_resolution'
+            @gl.uniform2f @shaderAttributes.u_resolution, @width, @height
 
         _compileShader: (id) ->
             shaderScript = document.getElementById id
@@ -61,17 +65,23 @@ define ->
 
             return shader
 
-        draw: (texture, x, y) ->
-            positionLocation = @gl.getAttribLocation @shaderProgram, 'a_position'
-            texCoordLocation = @gl.getAttribLocation @shaderProgram, 'a_texCoord'
-            resolutionLocation = @gl.getUniformLocation @shaderProgram, 'u_resolution'
-            @gl.uniform2f resolutionLocation, @width, @height
+        draw: (x, y, width, height) ->
+            x1 = x
+            x2 = x + width
+            y1 = y
+            y2 = y + height
+
+            @vertexData.push x1, y1, x2, y1, x1, y2, x1, y2, x2, y1, x2, y2
+
+        flush: (texture) ->
+            if @vertexData.length == 0
+                return
 
             texCoordBuffer = @gl.createBuffer()
             @gl.bindBuffer @gl.ARRAY_BUFFER, texCoordBuffer
             @gl.bufferData @gl.ARRAY_BUFFER, new Float32Array(texture.stData()), @gl.STATIC_DRAW
-            @gl.enableVertexAttribArray texCoordLocation
-            @gl.vertexAttribPointer texCoordLocation, 2, @gl.FLOAT, false, 0, 0
+            @gl.enableVertexAttribArray @shaderAttributes.a_texCoord
+            @gl.vertexAttribPointer @shaderAttributes.a_texCoord, 2, @gl.FLOAT, false, 0, 0
 
             tex = @gl.createTexture()
             @gl.bindTexture @gl.TEXTURE_2D, tex
@@ -85,25 +95,15 @@ define ->
 
             buffer = @gl.createBuffer()
             @gl.bindBuffer @gl.ARRAY_BUFFER, buffer
-            @gl.enableVertexAttribArray positionLocation
-            @gl.vertexAttribPointer positionLocation, 2, @gl.FLOAT, false, 0, 0
+            @gl.enableVertexAttribArray @shaderAttributes.a_position
+            @gl.vertexAttribPointer @shaderAttributes.a_position, 2, @gl.FLOAT, false, 0, 0
 
-            x1 = x
-            x2 = x + texture.width
-            y1 = y
-            y2 = y + texture.height
+            @gl.bufferData @gl.ARRAY_BUFFER, new Float32Array(@vertexData), @gl.STATIC_DRAW
 
-            @gl.bufferData @gl.ARRAY_BUFFER, new Float32Array([
-                    x1, y1
-                    x2, y1
-                    x1, y2
-                    x1, y2
-                    x2, y1
-                    x2, y2
-                ]), @gl.STATIC_DRAW
+            @gl.drawArrays @gl.TRIANGLES, 0, @vertexData.length / 2
+            @vertexData.length = 0
 
-            @numVertices += 6
+            @gl.deleteBuffer texCoordBuffer
+            @gl.deleteTexture tex
+            @gl.deleteBuffer buffer
 
-        flush: ->
-            @gl.drawArrays @gl.TRIANGLES, 0, @numVertices
-            @numVertices = 0

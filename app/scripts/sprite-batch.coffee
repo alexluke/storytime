@@ -15,10 +15,10 @@ define [
             @drawing = true
 
         draw: (texture, x, y) ->
-            if @currentTexture and texture.name != @currentTexture.name or @drawCount > @maxDraws
+            if texture != @currentTexture or @drawCount > @maxDraws
                 @flush()
                 @currentTexture = texture
-            @renderer.draw texture, x, y
+            @renderer.draw x, y, texture.width, texture.height
             @drawCount++
 
         end: ->
@@ -30,5 +30,5 @@ define [
 
         flush: ->
             if @drawCount > 0
-                @renderer.flush()
+                @renderer.flush @currentTexture
                 @drawCount = 0
