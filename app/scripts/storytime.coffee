@@ -4,9 +4,23 @@ define [
 ], (Game, Sprite) ->
     class Storytime extends Game
         init: ->
-            @sprite = new Sprite 'title', 0, 0
+            @pages = []
+            @currentPage = 0
+            @pages.push new Sprite 'title', 0, 0
+            for i in [1..8]
+                @pages.push new Sprite "page#{ i }", 0, 0
 
         draw: ->
             @spriteBatch.begin()
-            @sprite.draw @spriteBatch
+            @pages[@currentPage].draw @spriteBatch
             @spriteBatch.end()
+
+        update: (delta) ->
+            if @mouse.leftButton and not @hasClicked
+                @currentPage++
+                @hasClicked = true
+                if @currentPage >= @pages.length
+                    @currentPage = 0
+
+            if not @mouse.leftButton
+                @hasClicked = false
