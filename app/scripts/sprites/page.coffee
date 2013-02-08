@@ -14,11 +14,13 @@ define [
 
             @_shuffleTiles()
             padding = 20
-            bufferX = (768 - (padding * 3 + @tiles[0].width * 4)) / 2
-            bufferY = (1024 - (padding * 4 + @tiles[0].height * 5)) / 2
-            for y in [0...5]
-                for x in [0...4]
-                    index = x + y * 4
+            cols = 4
+            rows = 5
+            bufferX = (@width - (padding * (cols-1) + @tiles[0].width * cols)) / 2
+            bufferY = (@height - (padding * (rows-1) + @tiles[0].height * rows)) / 2
+            for y in [0...rows]
+                for x in [0...cols]
+                    index = x + y * cols
                     @tiles[index].x = bufferX + x * (@tiles[index].width + padding)
                     @tiles[index].y = bufferY + y * (@tiles[index].height + padding)
 
