@@ -26,7 +26,6 @@ define [
 
 
         draw: (batch) ->
-            super batch
             for tile in @tiles
                 tile.draw batch
             return
