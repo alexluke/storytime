@@ -14,11 +14,12 @@ define [
 
             @drawing = true
 
-        draw: (texture, x, y) ->
-            if texture != @currentTexture or @drawCount > @maxDraws
+        draw: (texture, x, y, color) ->
+            if not @currentTexture? or texture.name != @currentTexture.name or @drawCount > @maxDraws
                 @flush()
                 @currentTexture = texture
-            @renderer.draw x, y, texture.width, texture.height
+
+            @renderer.draw texture, x, y, color
             @drawCount++
 
         end: ->

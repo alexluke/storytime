@@ -21,16 +21,17 @@ define [
                     index = x + y * 4
                     @tiles[index].x = bufferX + x * (@tiles[index].width + padding)
                     @tiles[index].y = bufferY + y * (@tiles[index].height + padding)
-                
+
 
         draw: (batch) ->
             super batch
             for tile in @tiles
                 tile.draw batch
+            return
 
         _shuffleTiles: ->
             i = @tiles.length
-            
+
             while --i
                 j = Math.floor Math.random() * (i + 1)
                 [@tiles[i], @tiles[j]] = [@tiles[j], @tiles[i]]

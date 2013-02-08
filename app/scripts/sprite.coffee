@@ -7,9 +7,14 @@ define [
             @texture = Texture.load textureName
             @width ?= @texture.width
             @height ?= @texture.height
+            @color =
+                r: 1.0
+                g: 1.0
+                b: 1.0
+                a: 1.0
 
         draw: (batch) ->
-            batch.draw @texture, @x, @y
+            batch.draw @texture, @x, @y, @color
 
         update: (delta) ->
 
