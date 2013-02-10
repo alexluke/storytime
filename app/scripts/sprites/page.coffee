@@ -1,11 +1,14 @@
 define [
     'sprite'
     'sprites/tile'
-], (Sprite, Tile) ->
+    'timer'
+], (Sprite, Tile, Timer) ->
     class Page extends Sprite
         constructor: (pageNumber, words) ->
             super "page#{ pageNumber }", 0, 0
             @tiles = []
+            @canClick = true
+            @currentTile = false
             for word in words
                 for i in [0..1]
                     @tiles.push new Tile word
@@ -27,15 +30,33 @@ define [
 
         draw: (batch) ->
             for tile in @tiles
-                tile.draw batch
+                if tile.alive
+                    tile.draw batch
             return
 
         update: (delta, mouse) ->
-            if mouse.leftButton and not @hasClicked
+            if @canClick and not @hasClicked and mouse.leftButton
+                @canClick = false
                 @hasClicked = true
                 for tile in @tiles
                     if tile.contains mouse.x, mouse.y
                         tile.flip()
+                        if @currentTile
+                            otherTile = @currentTile
+                            if @currentTile.word == tile.word
+                                Timer.in 1500, =>
+                                    otherTile.alive = false
+                                    tile.alive = false
+                                    @canClick = true
+                            else
+                                Timer.in 1500, =>
+                                    otherTile.flip()
+                                    tile.flip()
+                                    @canClick = true
+                            @currentTile = false
+                        else
+                            @currentTile = tile
+                            @canClick = true
                         break
 
             if not mouse.leftButton
