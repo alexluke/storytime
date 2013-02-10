@@ -44,12 +44,12 @@ define [
                         if @currentTile
                             otherTile = @currentTile
                             if @currentTile.word == tile.word
-                                Timer.in 1500, =>
+                                Timer.in 1000, =>
                                     otherTile.alive = false
                                     tile.alive = false
                                     @canClick = true
                             else
-                                Timer.in 1500, =>
+                                Timer.in 1000, =>
                                     otherTile.flip()
                                     tile.flip()
                                     @canClick = true
