@@ -15,11 +15,16 @@ define [
             @color = Tile.colors[index]
             @font = new FontTexture 'Ariel', 32, 'black', "rgba(#{ @color.r*255 }, #{ @color.g*255 }, #{ @color.b*255 }, #{ @color.a })"
             @font.setText @word
+            @showWord = false
 
         draw: (batch) ->
             super batch
-            textPos =
-                x: @x + @width / 2 - @font.width / 2
-                y: @y + @height / 2 - @font.height / 2
-            batch.draw @font, textPos.x, textPos.y, {r:1,g:1,b:1,a:1}
+            if @showWord
+                textPos =
+                    x: @x + @width / 2 - @font.width / 2
+                    y: @y + @height / 2 - @font.height / 2
+                batch.draw @font, textPos.x, textPos.y, {r:1,g:1,b:1,a:1}
+
+        flip: ->
+            @showWord = !@showWord
 

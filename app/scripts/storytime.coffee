@@ -21,3 +21,4 @@ define [
             @spriteBatch.end()
 
         update: (delta) ->
+            @page.update delta, @mouse

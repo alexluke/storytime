@@ -22,3 +22,8 @@ define [
             withinX = @x + @width > otherSprite.x and @x < otherSprite.x + otherSprite.width
             withinY = @y + @height > otherSprite.y and @y < otherSprite.y + otherSprite.height
             return @alive and otherSprite.alive and withinX and withinY
+
+        contains: (x, y) ->
+            withinX = x > @x and x < @x + @width
+            withinY = y > @y and y < @y + @height
+            return @alive and withinX and withinY

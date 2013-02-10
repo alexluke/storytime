@@ -30,6 +30,17 @@ define [
                 tile.draw batch
             return
 
+        update: (delta, mouse) ->
+            if mouse.leftButton and not @hasClicked
+                @hasClicked = true
+                for tile in @tiles
+                    if tile.contains mouse.x, mouse.y
+                        tile.flip()
+                        break
+
+            if not mouse.leftButton
+                @hasClicked = false
+
         _shuffleTiles: ->
             i = @tiles.length
 
