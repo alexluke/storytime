@@ -7,6 +7,11 @@ define [
             @renderer = new WebGLRenderer renderTarget
             @drawCount = 0
             @maxDraws = 1000
+            @white =
+                r: 1.0
+                g: 1.0
+                b: 1.0
+                a: 1.0
 
         begin: ->
             if @drawing
@@ -19,6 +24,8 @@ define [
                 @flush()
                 @currentTexture = texture
 
+            if not color?
+                color = @white
             @renderer.draw texture, x, y, color
             @drawCount++
 

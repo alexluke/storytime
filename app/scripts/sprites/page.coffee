@@ -1,8 +1,9 @@
 define [
     'sprite'
-    'sprites/tile'
+    'sprites/word-tile'
+    'sprites/image-tile'
     'timer'
-], (Sprite, Tile, Timer) ->
+], (Sprite, WordTile, ImageTile, Timer) ->
     class Page extends Sprite
         constructor: (pageNumber, words) ->
             super "page#{ pageNumber }", 0, 0
@@ -11,9 +12,11 @@ define [
             @currentTile = false
             for word in words
                 for i in [0..1]
-                    @tiles.push new Tile word
-            for i in [@tiles.length...20]
-                @tiles.push new Tile '[pic]'
+                    @tiles.push new WordTile word
+            while @tiles.length < 20
+                image = ImageTile.images[Math.floor Math.random() * ImageTile.images.length]
+                for i in [0..1]
+                    @tiles.push new ImageTile image
 
             @_shuffleTiles()
             padding = 22
@@ -43,7 +46,7 @@ define [
                         tile.flip()
                         if @currentTile
                             otherTile = @currentTile
-                            if @currentTile.word == tile.word
+                            if @currentTile.id == tile.id
                                 Timer.in 1000, =>
                                     otherTile.alive = false
                                     tile.alive = false

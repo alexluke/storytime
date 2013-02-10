@@ -1,7 +1,6 @@
 define [
     'sprite'
-    'font-texture'
-], (Sprite, FontTexture) ->
+], (Sprite) ->
     class Tile extends Sprite
         @colors = [
             {r: 70/255, g: 255/255, b: 61/255, a: 1.0}
@@ -9,22 +8,13 @@ define [
             {r: 144/255, g: 92/255, b: 232/255, a: 1.0}
             {r: 35/255, g: 153/255, b: 255/255, a: 1.0}
         ]
-        constructor: (@word) ->
+
+        constructor: ->
             super "tile", 0, 0
             index = Math.floor Math.random() * Tile.colors.length
             @color = Tile.colors[index]
-            @font = new FontTexture 'Ariel', 32, 'black', "rgba(#{ @color.r*255 }, #{ @color.g*255 }, #{ @color.b*255 }, #{ @color.a })"
-            @font.setText @word
-            @showWord = false
-
-        draw: (batch) ->
-            super batch
-            if @showWord
-                textPos =
-                    x: @x + @width / 2 - @font.width / 2
-                    y: @y + @height / 2 - @font.height / 2
-                batch.draw @font, textPos.x, textPos.y, {r:1,g:1,b:1,a:1}
+            @showFace = false
 
         flip: ->
-            @showWord = !@showWord
+            @showFace = !@showFace
 
