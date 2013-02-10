@@ -13,7 +13,7 @@ define [
                 @tiles.push new Tile '[pic]'
 
             @_shuffleTiles()
-            padding = 20
+            padding = 22
             cols = 4
             rows = 5
             bufferX = (@width - (padding * (cols-1) + @tiles[0].width * cols)) / 2
