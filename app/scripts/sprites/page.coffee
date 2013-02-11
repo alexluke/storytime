@@ -13,8 +13,11 @@ define [
             for word in words
                 for i in [0..1]
                     @tiles.push new WordTile word
+            images = ImageTile.images
             while @tiles.length < 20
-                image = ImageTile.images[Math.floor Math.random() * ImageTile.images.length]
+                imageIndex = Math.floor Math.random() * images.length
+                image = images[imageIndex]
+                images.splice imageIndex, 1
                 for i in [0..1]
                     @tiles.push new ImageTile image
 

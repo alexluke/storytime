@@ -5,6 +5,9 @@ define [
     class ImageTile extends Tile
         @images = [
             'bird'
+            'jester'
+            'queen'
+            'king'
         ]
 
         constructor: (image) ->
