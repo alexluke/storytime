@@ -1,10 +1,10 @@
 define [
     'game'
-    'sprites/page'
+    'scenes/page'
 ], (Game, Page) ->
     class Storytime extends Game
         init: ->
-            @page = new Page 1, [
+            @page = new Page @width, @height, [
                 'sing'
                 'a'
                 'song'

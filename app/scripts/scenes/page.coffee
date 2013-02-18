@@ -1,12 +1,12 @@
 define [
-    'sprite'
+    'scene'
     'sprites/word-tile'
     'sprites/image-tile'
     'timer'
-], (Sprite, WordTile, ImageTile, Timer) ->
-    class Page extends Sprite
-        constructor: (pageNumber, words) ->
-            super "page#{ pageNumber }", 0, 0
+], (Scene, WordTile, ImageTile, Timer) ->
+    class Page extends Scene
+        constructor: (width, height, words) ->
+            super width, height
             @tiles = []
             @canClick = true
             @currentTile = false
