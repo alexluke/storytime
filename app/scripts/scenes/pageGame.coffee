@@ -49,7 +49,7 @@ define [
                         tile.flip()
                         if @currentTile
                             otherTile = @currentTile
-                            if @currentTile.id == tile.id
+                            if @currentTile.id == tile.id and @currentTile != tile
                                 Timer.in 1000, =>
                                     otherTile.alive = false
                                     tile.alive = false
