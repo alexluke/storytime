@@ -1,10 +1,12 @@
 define [
     'game'
     'scenes/page'
-], (Game, Page) ->
+    'scenes/pageGame'
+], (Game, Page, PageGame) ->
     class Storytime extends Game
         init: ->
-            @page = new Page @width, @height, [
+            @page = new Page 1
+            @game = new PageGame @width, @height, [
                 'sing'
                 'a'
                 'song'
@@ -15,10 +17,14 @@ define [
                 'rye'
             ]
 
+            @currentScene = @page
+
         draw: ->
             @spriteBatch.begin()
-            @page.draw @spriteBatch
+            @currentScene.draw @spriteBatch
             @spriteBatch.end()
 
         update: (delta) ->
-            @page.update delta, @mouse
+            @currentScene.update delta, @mouse
+            if @currentScene == @page and @mouse.leftButton
+                @currentScene = @game
