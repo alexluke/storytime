@@ -13,7 +13,7 @@ define [
             for word in words
                 for i in [0..1]
                     @tiles.push new WordTile word
-            images = ImageTile.images
+            images = ImageTile.images.slice 0
             while @tiles.length < 20
                 imageIndex = Math.floor Math.random() * images.length
                 image = images[imageIndex]
@@ -67,6 +67,17 @@ define [
 
             if not mouse.leftButton
                 @hasClicked = false
+
+            if not @stillHasTiles()
+                @running = false
+
+        stillHasTiles: ->
+            for tile in @tiles
+                if tile.alive
+                    return true
+
+            return false
+
 
         _shuffleTiles: ->
             i = @tiles.length
