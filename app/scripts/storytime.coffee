@@ -6,6 +6,7 @@ define [
 ], (Game, Page, PageGame, Timer) ->
     class Storytime extends Game
         @words = [
+            []
             ['sing', 'a', 'song', 'of', 'sixpence', 'pocket', 'full', 'rye']
             ['four', 'and', 'twenty', 'black', 'birds', 'baked', 'in', 'a', 'pie']
             ['when', 'the', 'pie', 'was', 'open\'d', 'birds', 'began', 'to', 'sing']
