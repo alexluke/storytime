@@ -2,7 +2,8 @@ define [
     'game'
     'scenes/page'
     'scenes/pageGame'
-], (Game, Page, PageGame) ->
+    'timer'
+], (Game, Page, PageGame, Timer) ->
     class Storytime extends Game
         init: ->
             @page = new Page 1
@@ -27,4 +28,5 @@ define [
         update: (delta) ->
             @currentScene.update delta, @mouse
             if @currentScene == @page and @mouse.leftButton
-                @currentScene = @game
+                Timer.in 1000, =>
+                    @currentScene = @game
