@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title></title>
+        <meta name="viewport" content="width=device-width">
+        <link rel="stylesheet" href="styles/9bfe2d1d.main.css">
+    </head>
+    <body>
+        <canvas id="storytime" width="768" height="1024"></canvas>
+        <script id="vertex-shader" type="x-shader/x-vertex">
+            attribute vec2 a_position;
+            attribute vec2 a_texCoord;
+            attribute vec4 a_color;
+
+            uniform vec2 u_resolution;
+
+            varying vec2 v_texCoord;
+            varying vec4 v_color;
+
+            void main() {
+                vec2 clipSpace = (a_position / u_resolution) * 2.0 - 1.0;
+
+                gl_Position = vec4(clipSpace * vec2(1, -1), 0, 1);
+
+                v_texCoord = a_texCoord;
+                v_color = a_color;
+            }
+        </script>
+        <script id="fragment-shader" type="x-shader/x-fragment">
+            precision mediump float;
+
+            uniform sampler2D u_image;
+
+            varying vec2 v_texCoord;
+            varying vec4 v_color;
+
+            void main() {
+                gl_FragColor = v_color * texture2D(u_image, v_texCoord);
+            }
+        </script>
+        <div id="assets">
+            <img id="title" src="images/f1ae6930.title.jpg" />
+            <img id="page1" src="images/18a49dbb.page01.jpg" />
+            <img id="page2" src="images/bde4ca26.page02.jpg" />
+            <img id="page3" src="images/ab743881.page03.jpg" />
+            <img id="page4" src="images/1e2fc09d.page04.jpg" />
+            <img id="page5" src="images/6cefbca6.page05.jpg" />
+            <img id="page6" src="images/12c302a9.page06.jpg" />
+            <img id="page7" src="images/7aca6398.page07.jpg" />
+            <img id="page8" src="images/5c7a7b94.page08.jpg" />
+            <img id="tile" src="images/a1688789.tile.png" />
+            <img id="bird" src="images/5509c724.bird.png" />
+            <img id="jester" src="images/42189f3b.jester.png" />
+            <img id="queen" src="images/034f7bbc.queen.png" />
+            <img id="king" src="images/d1be200b.king.png" />
+        </div>
+
+        <script src="scripts/8daf0bd4.amd-app.js"></script>
+    </body>
+</html>
