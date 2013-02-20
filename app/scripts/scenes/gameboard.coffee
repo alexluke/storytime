@@ -4,7 +4,7 @@ define [
     'sprites/image-tile'
     'timer'
 ], (Scene, WordTile, ImageTile, Timer) ->
-    class PageGame extends Scene
+    class Gameboard extends Scene
         constructor: (width, height, words) ->
             super width, height
             @tiles = []

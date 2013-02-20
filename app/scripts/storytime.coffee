@@ -1,9 +1,9 @@
 define [
     'game'
     'scenes/page'
-    'scenes/pageGame'
+    'scenes/gameboard'
     'timer'
-], (Game, Page, PageGame, Timer) ->
+], (Game, Page, Gameboard, Timer) ->
     class Storytime extends Game
         @words = [
             []
@@ -22,7 +22,7 @@ define [
 
             for i in [1...8]
                 @scenes.push new Page i
-                @scenes.push new PageGame @width, @height, Storytime.words[i]
+                @scenes.push new Gameboard @width, @height, Storytime.words[i]
 
             @currentScene = 0
 
