@@ -12,7 +12,7 @@ define [
             ['when', 'the', 'pie', 'was', 'open\'d', 'birds', 'began', 'to', 'sing']
             ['was\'nt', 'that', 'a', 'dainty', 'dish', 'to', 'set', 'before', 'the', 'king']
             ['the', 'king', 'was', 'in', 'his', 'counting', 'house', 'out', 'money']
-            ['the', 'queen', 'was', 'in', 'the', 'parlow', 'eating', 'bread', 'and', 'honey']
+            ['the', 'queen', 'was', 'in', 'parlow', 'eating', 'bread', 'and', 'honey']
             ['the', 'maid', 'was', 'in', 'garden', 'hanging', 'out', 'clothes']
             ['there', 'came', 'a', 'little', 'black', 'bird', 'and', 'nipp\'d', 'off', 'her', 'nose']
         ]
