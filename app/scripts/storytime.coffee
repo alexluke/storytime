@@ -20,7 +20,7 @@ define [
             @scenes = []
             @scenes.push new Page @width, @height, 'title'
 
-            for i in [1...8]
+            for i in [1..8]
                 @scenes.push new Page @width, @height, i, Storytime.words[i]
 
             @currentSceneNumber = 0
@@ -38,6 +38,8 @@ define [
                     nextScene = @currentScene.nextScene
                 else
                     @currentSceneNumber++
+                    if @currentSceneNumber >= @scenes.length
+                        @currentSceneNumber = 0
                     nextScene = @scenes[@currentSceneNumber]
 
                 @transitioning = true

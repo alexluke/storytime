@@ -2,11 +2,6 @@ body {
     margin: 30px auto;
     width: 768px;
 }
-
-canvas {
-    border: 1px solid black;
-}
-
 #assets {
     display: none;
 }
