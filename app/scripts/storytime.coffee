@@ -18,11 +18,10 @@ define [
         ]
         init: ->
             @scenes = []
-            @scenes.push new Page 'title'
+            @scenes.push new Page @width, @height, 'title'
 
             for i in [1...8]
-                @scenes.push new Page i
-                @scenes.push new Gameboard @width, @height, Storytime.words[i]
+                @scenes.push new Page @width, @height, i, Storytime.words[i]
 
             @currentScene = 0
 

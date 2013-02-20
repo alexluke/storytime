@@ -4,7 +4,7 @@ define [
     class Sprite
         constructor: (textureName, @x, @y) ->
             @alive = true
-            @texture = Texture.load textureName
+            @texture ?= Texture.load textureName
             @width ?= @texture.width
             @height ?= @texture.height
             @color =
