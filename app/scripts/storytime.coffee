@@ -14,7 +14,7 @@ define [
             ['the', 'king', 'was', 'in', 'his', 'counting', 'house', 'out', 'money']
             ['the', 'queen', 'was', 'in', 'parlow', 'eating', 'bread', 'and', 'honey']
             ['the', 'maid', 'was', 'in', 'garden', 'hanging', 'out', 'clothes']
-            ['there', 'came', 'a', 'little', 'black', 'bird', 'and', 'nipp\'d', 'off', 'her', 'nose']
+            ['there', 'came', 'a', 'little', 'blackbird', 'and', 'nipp\'d', 'off', 'her', 'nose']
         ]
         init: ->
             @scenes = []
