@@ -23,18 +23,24 @@ define [
             for i in [1...8]
                 @scenes.push new Page @width, @height, i, Storytime.words[i]
 
-            @currentScene = 0
+            @currentSceneNumber = 0
+            @currentScene = @scenes[@currentSceneNumber]
 
         draw: ->
             @spriteBatch.begin()
-            @scenes[@currentScene].draw @spriteBatch
+            @currentScene.draw @spriteBatch
             @spriteBatch.end()
 
         update: (delta) ->
-            currentScene = @scenes[@currentScene]
-            currentScene.update delta, @mouse
-            if not currentScene.running and not @transitioning
+            @currentScene.update delta, @mouse
+            if not @currentScene.running and not @transitioning
+                if @currentScene.nextScene?
+                    nextScene = @currentScene.nextScene
+                else
+                    @currentSceneNumber++
+                    nextScene = @scenes[@currentSceneNumber]
+
                 @transitioning = true
                 Timer.in 1000, =>
-                    @currentScene++
+                    @currentScene = nextScene
                     @transitioning = false
