@@ -19,7 +19,7 @@ module.exports = function( grunt ) {
     coffee: {
       compile: {
         files: {
-          'temp/scripts/*.js': 'app/scripts/**/*.coffee' 
+          'temp/scripts/*.js': 'app/scripts/**/*.coffee'
         },
         options: {
           basePath: 'app/scripts'
@@ -130,7 +130,7 @@ module.exports = function( grunt ) {
     // renames JS/CSS to prepend a hash of their contents for easier
     // versioning
     rev: {
-      js: 'scripts/**/*.js',
+      //js: 'scripts/**/*.js',
       css: 'styles/**/*.css',
       img: 'images/**'
     },
@@ -164,13 +164,13 @@ module.exports = function( grunt ) {
     // name / out / mainConfig file should be used. You can let it blank if
     // you're using usemin-handler to parse rjs config from markup (default
     // setup)
-    rjs: {
+    /*rjs: {
       // no minification, is done by the min task
       optimize: 'none',
       baseUrl: './scripts',
       wrap: true,
       name: 'main'
-    },
+    },*/
 
     // While Yeoman handles concat/min when using
     // usemin blocks, you can still use them manually
