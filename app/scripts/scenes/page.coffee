@@ -7,7 +7,7 @@ define [
     class Page extends Scene
         constructor: (width, height, @pageNumber, @words) ->
             super width, height
-            if pageNumber == 'title'
+            if @pageNumber == 'title'
                 name = 'title'
             else
                 name = "page#{ @pageNumber }"
